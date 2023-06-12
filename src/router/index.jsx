@@ -1,8 +1,8 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
-import Login from "../pages/Login";
-import Home from "../pages/Home";
-import Contact from "../pages/Contact";
-import Modal3D from "../pages/Modal3D";
+import Login from "../pages/auth/Login";
+import Home from "../pages/home/Home";
+import Contact from "../pages/contact/Contact";
+import Modal3D from "../pages/modal3d/Modal3D";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const AuthLayout = () => {
