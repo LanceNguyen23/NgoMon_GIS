@@ -1,5 +1,10 @@
+import Header from "../components/Header";
+
 export default function Modal3D() {
   return (
-    <div>Modal3D</div>
+    <>
+      <Header/>
+      Modal 3D
+    </>
   )
 }
