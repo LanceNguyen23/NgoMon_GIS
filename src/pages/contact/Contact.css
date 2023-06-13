@@ -1,0 +1,83 @@
+.contact {
+  width: 100%;
+}
+
+.contact-title {
+  text-align: center;
+  color: #1a496f;
+  margin: 58px 0;
+  font-size: 40px;
+}
+
+.contact-contain {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contact-contain-form {
+  width: 40%;
+}
+
+.contact-form {
+  display: grid;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+.contact-form-title {
+  font: normal normal bold 15px/27px Bellota Text;
+  letter-spacing: 0.75px;
+  font-size: 18px;
+  color: #1a496f;
+}
+
+.contact-form-input {
+  margin-top: 8px;
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  font: normal normal normal 18px/55px Bellota Text;
+  letter-spacing: 0.75px;
+  color: #333333;
+  border: 0.5px solid;
+  border-color: #1a496f;
+}
+
+.contact-form-textarea {
+  resize: none;
+  margin-top: 8px;
+  padding: 15px;
+  border: 0.5px solid;
+  border-color: #1a496f;
+  height: 10vw;
+  text-align: start;
+  font: normal normal normal 18px Bellota Text;
+  letter-spacing: 0.75px;
+  color: #333333;
+}
+
+.contact-form-textarea:focus,
+.contact-form-input:focus {
+  outline: none !important;
+  border: 2px solid #1a496f;
+}
+
+.submit {
+  margin-bottom: 30px;
+  margin-left: 80%;
+  width: 20%;
+  height: 50px;
+  border: 1px solid;
+  background: #1a496f;
+  font: normal normal bold 18px/27px Bellota Text;
+  letter-spacing: 0.27px;
+  color: #f2efed;
+  cursor: pointer;
+  outline: none;
+}
+.submit:hover {
+  border-color: #1a496f;
+  transition: 0.5s;
+}
