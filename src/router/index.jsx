@@ -3,6 +3,7 @@ import Login from "../pages/auth/Login";
 import Home from "../pages/home/Home";
 import Contact from "../pages/contact/Contact";
 import Modal3D from "../pages/modal3d/Modal3D";
+import Contact_Admin from "../pages/contact_admin/Contact-Admin";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const AuthLayout = () => {
@@ -29,6 +30,10 @@ export default createBrowserRouter([
             {
                 element: <Modal3D/>,
                 path: "/modal3d"
+            },
+            {
+                element: <Contact_Admin/>,
+                path: "/contact_admin"
             },
         ]
     }
