@@ -7,6 +7,8 @@ import Contact from "../pages/contact/Contact";
 import Modal3D from "../pages/modal3d/Modal3D";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import ContactAdmin from "../pages/contact_admin/Contact-Admin";
+import SignUp from "../pages/signup/SignUp";
+import ForgotPassword from "../pages/forgotPassword/ForgotPassword";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const AuthLayout = () => {
@@ -30,6 +32,14 @@ export default createBrowserRouter([
       {
         element: <Login />,
         path: "/login",
+      },
+      {
+        element: <SignUp />,
+        path: "/signup",
+      },
+      {
+        element: <ForgotPassword/>,
+        path: '/forgotpassword'
       },
       {
         element: <ProtectedRoute />,

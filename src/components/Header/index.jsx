@@ -9,7 +9,7 @@ export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const navigate = useNavigate();
-  const user = useContext(AuthContext);
+  const {user, confirmLogin} = useContext(AuthContext);
 
   const auth = getAuth();
   const open = Boolean(anchorEl);
@@ -36,15 +36,15 @@ export default function Header() {
           <NavLink to="/contact">Liên hệ</NavLink>
         </nav>
       </div>
-      {!localStorage.getItem("accessToken") ? (
+      {!(localStorage.getItem("accessToken") && confirmLogin) ? (
         <button className="header_login-btn" onClick={() => navigate("/login")}>
           Đăng nhập
         </button>
       ) : (
         <>
           <Box className="header_userInfo" onClick={handleOpenMenu}>
-            <Avatar alt="avatar" src={user.user.photoURL} />
-            <Typography className="header_userName">{user.user.displayName}</Typography>
+            <Avatar alt="avatar" src={user.photoURL} />
+            <Typography className="header_userName">{user.displayName || user.email.slice(0,  user.email.indexOf("@"))}</Typography>
           </Box>
           <Menu
             anchorEl={anchorEl}
