@@ -2,15 +2,14 @@ import { NavLink, useNavigate } from "react-router-dom";
 import "./style.css";
 import { Avatar, Box, Menu, MenuItem, Typography } from "@mui/material";
 import { useContext, useState } from "react";
-import { AuthContext } from "../../Context/AuthProvider";
+import { AuthContext } from "../../context/AuthProvider";
 import { getAuth } from "firebase/auth";
+import Logo from '../../assets/img/Logo.png';
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const navigate = useNavigate();
-  const {
-    user: { displayName, photoURL },
-  } = useContext(AuthContext);
+  const user = useContext(AuthContext);
 
   const auth = getAuth();
   const open = Boolean(anchorEl);
@@ -20,13 +19,14 @@ export default function Header() {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
-  const handleLogout = () => {
-    auth.signOut();
+  const handleLogout = async() => {
+    await auth.signOut();
+    navigate('/login')
   };
   return (
     <div className="header_container">
-      <div className="header_logo">
-        <img src="https://firebasestorage.googleapis.com/v0/b/ngomonweb.appspot.com/o/images%2FNgoMon.png?alt=media&token=c6ca4740-85cf-49e5-ae54-ddf3e02aa140"></img>
+      <div className="header_logo" onClick={()=>navigate("/")}>
+        <img src={Logo}></img>
         <p className="header_title">NGỌ MÔN HUẾ</p>
       </div>
       <div className="header_navigation">
@@ -43,8 +43,8 @@ export default function Header() {
       ) : (
         <>
           <Box className="header_userInfo" onClick={handleOpenMenu}>
-            <Avatar alt="avatar" src={photoURL} />
-            <Typography className="header_userName">{displayName}</Typography>
+            <Avatar alt="avatar" src={user.user.photoURL} />
+            <Typography className="header_userName">{user.user.displayName}</Typography>
           </Box>
           <Menu
             anchorEl={anchorEl}

@@ -1,14 +1,20 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import Header from "../../components/Header";
+import Header from "../../components/header";
 import "./styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import {
+  FacebookAuthProvider,
+  GoogleAuthProvider,
+  getAuth,
+  signInWithPopup,
+} from "firebase/auth";
 import { useContext, useEffect } from "react";
-import { AuthContext } from "../../Context/AuthProvider";
+import { AuthContext } from "../../context/AuthProvider";
 
 export default function Login() {
   const { user } = useContext(AuthContext);
+  console.log(user);
   const auth = getAuth();
   const navigate = useNavigate();
 
@@ -18,14 +24,24 @@ export default function Login() {
     console.log(res);
   };
 
-  useEffect(() =>{
+  const handleLoginWithFacebook = async () => {
+    const provider = new FacebookAuthProvider();
+    signInWithPopup(auth, provider)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  useEffect(() => {
     if (user?.uid) {
       navigate("/");
       return;
     }
-  })
+  });
 
-  
   return (
     <>
       <Header />
@@ -47,7 +63,7 @@ export default function Login() {
         <div className="login_otherSignIn">
           <p>Đăng nhập bằng</p>
           <div className="login_fb_gg">
-            <button>
+            <button onClick={handleLoginWithFacebook}>
               <FontAwesomeIcon
                 icon={faFacebookF}
                 style={{ color: "#146ebe" }}

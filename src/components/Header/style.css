@@ -7,16 +7,19 @@
     align-items: center;
     justify-content: space-between;
     padding: 0 100px;
+    position: sticky;
+    top: 0px;
 }
 
 .header_logo {
     display: flex;
     flex-direction: column;
-    margin-right: 315px
+    margin-right: 315px;
+    cursor: pointer;
 }
 
 .header_logo img {
-    width: 90px
+    width: 90px;
 }
 
 .header_logo .header_title {
@@ -38,7 +41,6 @@
     color: rgb(255,255,255,0.7);
     text-decoration: none;
     font-weight: 500;
-    
 }
 
 .header_navigation nav a.active {

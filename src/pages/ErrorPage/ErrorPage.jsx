@@ -1,5 +1,6 @@
 import { useRouteError } from "react-router-dom";
-import Header from "../../components/Header";
+import Header from "../../components/header";
+import errorIcon from '../../assets/img/errorIcon.png'
 
 export default function ErrorPage() {
   const error = useRouteError();
@@ -11,12 +12,13 @@ export default function ErrorPage() {
         style={{
           textAlign: "center",
           fontFamily: "inherit",
-          marginTop: "50px",
+          marginTop: "150px",
         }}
       >
+        <img src={errorIcon} alt='errorIcon' style={{width: '200px'}}/>
         <h1>Oops!</h1>
-        <p>Sorry, an unexpected error has occurred.</p>
-        <p>
+        <p style={{marginTop: '5px'}}>Sorry, an unexpected error has occurred.</p>
+        <p style={{marginTop: '10px'}}>
           <i>{error.statusText}</i>
         </p>
       </div>

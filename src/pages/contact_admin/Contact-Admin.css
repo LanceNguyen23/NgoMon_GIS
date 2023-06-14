@@ -1,0 +1,85 @@
+.contact-admin{
+    width: 100%;
+}
+
+.contact-admin-table{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contact-admin-table-content{
+    width: 90%;
+    margin: 40px 0;
+    border: 1px solid #1a496f;
+    border-bottom: none;
+}
+
+.contact-admin-table-content-row{
+    display: flex;
+    width: 100%;
+    padding: 18px 0;
+    border-bottom: 1px solid #1a496f;
+}
+
+.contact-admin-table-col1{
+    width: 5%;
+    text-align: center;
+    padding: 8px 10px;
+}
+
+.contact-admin-table-col{
+    width: 20%;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-gap: 20px;
+    padding: 8px 10px; 
+}
+
+.contact-admin-table-col2{
+    width: 20%;
+    text-align: center;
+    padding: 8px 10px; 
+}
+
+.contact-admin-table-col3{
+    width: 40%;
+    text-align: center;
+    padding: 8px 10px;  
+}
+
+.contact-btn-send{
+    height: 45px;
+    border: 1px solid;
+    background: #1a496f;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.27px;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+}
+
+.contact-btn-send:hover {
+    border-color: #1a496f;
+    transition: 0.5s;
+  }
+
+.contact-btn-delete{
+    height: 45px;
+    border: 1px solid;
+    background: #c92833;
+    font-size: 16px;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.27px;
+    color: #fff;
+    cursor: pointer;
+    outline: none;
+}
+
+.contact-btn-delete:hover {
+    border-color: #c92833;
+    transition: 0.5s;
+  }

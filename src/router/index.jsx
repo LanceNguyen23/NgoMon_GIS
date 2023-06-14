@@ -1,11 +1,12 @@
 import { Outlet, createBrowserRouter } from "react-router-dom";
-import Login from "../pages/Login/Login";
-import Home from "../pages/Home";
-import Contact from "../pages/Contact";
-import Modal3D from "../pages/Modal3D";
-import AuthProvider from "../Context/AuthProvider";
+import Login from "../pages/login/Login";
+import AuthProvider from "../context/AuthProvider";
 import ProtectedRoute from "./ProtectedRoute";
+import Home from "../pages/home/Home";
+import Contact from "../pages/contact/Contact";
+import Modal3D from "../pages/modal3d/Modal3D";
 import ErrorPage from "../pages/ErrorPage/ErrorPage";
+import ContactAdmin from "../pages/contact_admin/Contact-Admin";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const AuthLayout = () => {
@@ -20,15 +21,15 @@ const AuthLayout = () => {
 export default createBrowserRouter([
   {
     element: <AuthLayout />,
-    errorElement: <ErrorPage/>,
+    errorElement: <ErrorPage />,
     children: [
-      {
-        element: <Login />,
-        path: "/login",
-      },
       {
         element: <Home />,
         path: "/",
+      },
+      {
+        element: <Login />,
+        path: "/login",
       },
       {
         element: <ProtectedRoute />,
@@ -40,6 +41,10 @@ export default createBrowserRouter([
           {
             element: <Modal3D />,
             path: "/modal3d",
+          },
+          {
+            element: <ContactAdmin />,
+            path: "/contact_admin",
           },
         ],
       },
