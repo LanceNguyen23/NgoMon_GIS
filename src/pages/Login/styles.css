@@ -1,0 +1,97 @@
+.login_container {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 0 20px;
+}
+.login_title {
+  color: #1a496f;
+  margin: 110px auto 20px;
+  font-size: 30px;
+}
+
+.login_container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login_container form label {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.login_container form input {
+  height: 30px;
+  margin-bottom: 10px;
+  padding: 0 10px;
+  font-size: 14px;
+}
+
+.login_container form button {
+  width: 40%;
+  padding: 8px 0;
+  margin: 10px auto 15px;
+  border-radius: 10px;
+  background: #1a496f;
+  color: #fff;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.login_forgot_signUp nav {
+  display: flex;
+  justify-content: space-between;
+  font-size: 14px;
+}
+
+.login_forgot_signUp nav a {
+  text-decoration: none;
+  color: #1a496f;
+}
+
+.login_forgot_signUp nav a:hover {
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.login_otherSignIn {
+  margin-top: 15px;
+  position: relative;
+}
+
+.login_otherSignIn p {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.login_otherSignIn p:before,
+.login_otherSignIn p:after {
+  position: absolute;
+  top: 10px;
+  overflow: hidden;
+  margin-left: 10px;
+  width: 67px;
+  height: 0.5px;
+  content: "\a0";
+  background-color: black;
+}
+
+.login_otherSignIn > p:before {
+  margin-left: -75px;
+  text-align: right;
+}
+
+.login_fb_gg {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.login_fb_gg button {
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid rgb(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
