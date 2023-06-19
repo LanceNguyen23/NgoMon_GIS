@@ -1,0 +1,44 @@
+
+.modal3d-admin-btn-update{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 40px;
+    border-color: #1a496f;
+    background: #1a496f;
+    font: normal normal bold 18px/27px Bellota Text;
+    letter-spacing: 0.27px;
+    color: #f2efed;
+    cursor: pointer;
+    outline: none;
+    border-radius: 12px;
+    padding: 10px;
+}
+
+.modal3d-admin-btn-update:hover {
+    border-color: #1a496f;
+    transition: 0.5s;
+  }
+
+  .modal3d-admin-form-update{
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin-top: 100px;
+    width: 30%;
+    background-color: #fff;
+  }
+
+.modal3d-admin-form-update-title{
+    text-align: center;
+    margin-top: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #333333;
+}
+
+.modal3d-admin-form-update-form{
+    margin: 0 20px;
+    margin-top: 20px;
+}
