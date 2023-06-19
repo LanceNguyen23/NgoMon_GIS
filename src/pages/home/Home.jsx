@@ -8,17 +8,8 @@ import lauNM from "../../assets/img/lauNM.jpg";
 import "../home/Home.css";
 import Header from "../../components/header";
 import Footer from "../../components/footer";
-import { useState } from "react";
 
 export default function Home() {
-
-  const [isVisible, setIsVisible] = useState(false);
-
-  const handleClick = () => {
-    setIsVisible(!isVisible);
-  };
-
-
   console.log("Home");
   return (
     <>

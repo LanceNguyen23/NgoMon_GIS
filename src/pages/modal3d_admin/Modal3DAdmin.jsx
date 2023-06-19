@@ -1,7 +1,15 @@
 import HeaderAdmin from "../../components/header/HeaderAdmin";
 import "../modal3d_admin/Modal3DAdmin.css"
+import { useState } from "react";
 
 export default function Modal3DAdmin() {
+
+  const [isVisible, setIsVisible] = useState(false);
+
+  const handleClick = () => {
+    setIsVisible(!isVisible);
+  };
+  
   return (
     <>
       <HeaderAdmin />
