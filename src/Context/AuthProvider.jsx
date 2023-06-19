@@ -6,23 +6,23 @@ export const AuthContext = createContext()
 // eslint-disable-next-line react/prop-types
 export default function AuthProvider({children}) {
   const [user, setUser] = useState({})
-  const [confirmLogin, setConfirmLogin] = useState(false)
+
 
   const auth = getAuth();
+  console.log("auth provider")
 
   useEffect(() =>{
+    localStorage.setItem("confirmLogin", false)
     const unsubcribed = auth.onIdTokenChanged((user)=>{
       console.log('auth user', user);
       if(user?.uid) {
         setUser(user)
-        localStorage.setItem('accessToken', user.accessToken);
+        // localStorage.setItem('accessToken', user.accessToken);
         return;
       }
 
       // reset user info
       setUser({});
-      setConfirmLogin(false);
-      localStorage.clear()
     })
 
     return () => {
@@ -33,7 +33,7 @@ export default function AuthProvider({children}) {
   }, [auth])
 
   return (
-    <AuthContext.Provider value={{user, setUser, confirmLogin, setConfirmLogin}}>
+    <AuthContext.Provider value={{user, setUser}}>
       {children}
     </AuthContext.Provider>
   )

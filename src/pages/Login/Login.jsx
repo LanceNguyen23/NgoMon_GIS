@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/header";
 import "./styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,28 +7,26 @@ import {
   FacebookAuthProvider,
   GoogleAuthProvider,
   getAuth,
-  signInWithEmailAndPassword,
   signInWithPopup,
 } from "firebase/auth";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthProvider";
+import { useState } from "react";
+import axios from "axios";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
-  // eslint-disable-next-line no-unused-vars
-  const { user, confirmLogin, setConfirmLogin } = useContext(AuthContext);
   const auth = getAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLoginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider)
       .then((res) => {
         console.log(res);
-        setConfirmLogin(true);
-        navigate("/");
+        localStorage.setItem("confirmLogin", true)
+        navigate(location.state.previousUrl);
       })
       .catch((err) => {
         console.log(err);
@@ -40,8 +38,8 @@ export default function Login() {
     await signInWithPopup(auth, provider)
       .then((res) => {
         console.log(res);
-        setConfirmLogin(true);
-        navigate("/");
+        localStorage.setItem("confirmLogin", true)
+        navigate(location.state.previousUrl);
       })
       .catch((err) => {
         console.log(err.message);
@@ -50,26 +48,23 @@ export default function Login() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        setConfirmLogin(true);
-        console.log(confirmLogin);
-        navigate("/");
-        console.log(user);
+    axios
+      .post("http://localhost:3001/api/auth/login", {
+        email: email,
+        password: password
       })
-      .catch((error) => {
-        setError(error.code);
+      .then(({ data }) => {
+        localStorage.setItem("confirmLogin", true)
+        localStorage.setItem("accessToken", data.tokens.accessToken);
+        localStorage.setItem("userName", data.currentUser.name);
+        localStorage.setItem("userID", data.currentUser._id);
+        navigate(location.state.previousUrl || "/");
+      })
+      .catch(({ response }) => {
+        console.log(response.data.message);
+        setError(response.data.message);
       });
   };
-
-  // useEffect(() => {
-  //   if (user?.uid) {
-  //     navigate("/");
-  //     return;
-  //   }
-  // });
 
   return (
     <>
@@ -93,10 +88,14 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          {error == "auth/user-not-found" ? (
-            <p style={{fontSize: '14px', color: 'red'}}>Email này chưa đăng ký.</p>
-          ) : error == "auth/wrong-password" ? (
-            <p style={{fontSize: '14px', color: 'red'}}>Mật khẩu không đúng.</p>
+          {error == "Incorrect email" ? (
+            <p style={{ fontSize: "14px", color: "red" }}>
+              Email không đúng.
+            </p>
+          ) : error == "Incorrect  password" ? (
+            <p style={{ fontSize: "14px", color: "red" }}>
+              Mật khẩu không đúng.
+            </p>
           ) : (
             <></>
           )}
