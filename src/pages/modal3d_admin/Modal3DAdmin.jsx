@@ -18,7 +18,7 @@ export default function Modal3DAdmin() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const url = `http://localhost:3001/api/${selectedOption}/update?path=${pathEntity}`
+    const url = `https://gis-historical-relic.onrender.com/api/${selectedOption}/update?path=${pathEntity}`
     console.log(url)
     axios.put(url, newEntity)
     .then(() => {

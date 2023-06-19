@@ -49,7 +49,7 @@ export default function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3001/api/auth/login", {
+      .post("https://gis-historical-relic.onrender.com/api/auth/login", {
         email: email,
         password: password
       })
