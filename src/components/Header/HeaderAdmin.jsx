@@ -3,13 +3,12 @@ import "./style.css";
 import { Avatar, Box, Menu, MenuItem, Typography } from "@mui/material";
 import { useState } from "react";
 import Logo from '../../assets/img/Logo.png';
-export default function Header() {
+export default function HeaderAdmin() {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  console.log("header user")
   const navigate = useNavigate();
   const location = useLocation();
-  const confirmLogin = localStorage.getItem("confirmLogin");
+  console.log("header admin")
 
   const open = Boolean(anchorEl);
   const handleOpenMenu = (e) => {
@@ -18,9 +17,9 @@ export default function Header() {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
-  const handleLogout = async() => {
+  const handleLogoutAdmin = async() => {
     localStorage.clear();
-    navigate('/login', {
+    navigate('/admin', {
       state: {
         previousUrl: location.pathname
       }
@@ -34,12 +33,11 @@ export default function Header() {
       </div>
       <div className="header_navigation">
         <nav>
-          <NavLink to="/">Trang chủ</NavLink>
-          <NavLink to="/modal3d">Mô hình 3D</NavLink>
-          <NavLink to="/contact">Liên hệ</NavLink>
+          <NavLink to="/admin/manage_building">Quản lí công trình</NavLink>
+          <NavLink to="/admin/contact_admin">Liên hệ</NavLink>
         </nav>
       </div>
-      {!(localStorage.getItem("accessToken") && confirmLogin) ? (
+      {(!localStorage.getItem("accessToken") || !localStorage.getItem("confirmLogin")) ? (
         <button className="header_login-btn" onClick={() => navigate("/login")}>
           Đăng nhập
         </button>
@@ -62,7 +60,7 @@ export default function Header() {
               horizontal: "right",
             }}
           >
-            <MenuItem onClick={handleLogout}>Đăng xuất</MenuItem>
+            <MenuItem onClick={handleLogoutAdmin}>Đăng xuất</MenuItem>
           </Menu>
         </>
       )}

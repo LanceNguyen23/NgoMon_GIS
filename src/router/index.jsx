@@ -9,6 +9,9 @@ import ErrorPage from "../pages/ErrorPage/ErrorPage";
 import ContactAdmin from "../pages/contact_admin/Contact-Admin";
 import SignUp from "../pages/signup/SignUp";
 import ForgotPassword from "../pages/forgotPassword/ForgotPassword";
+import LoginAdmin from "../pages/login_admin/LoginAdmin";
+import ProtectedAdminRoute from "./ProtectedAdminRoute";
+import Modal3DAdmin from "../pages/modal3d_admin/Modal3dAdmin";
 
 // eslint-disable-next-line react-refresh/only-export-components
 const AuthLayout = () => {
@@ -42,6 +45,10 @@ export default createBrowserRouter([
         path: '/forgotpassword'
       },
       {
+        element: <LoginAdmin/>,
+        path: '/admin'
+      },
+      {
         element: <ProtectedRoute />,
         children: [
           {
@@ -52,9 +59,18 @@ export default createBrowserRouter([
             element: <Modal3D />,
             path: "/modal3d",
           },
+        ],
+      },
+      {
+        element: <ProtectedAdminRoute />,
+        children: [
           {
             element: <ContactAdmin />,
-            path: "/contact_admin",
+            path: "/admin/contact_admin",
+          },
+          {
+            element: <Modal3DAdmin />,
+            path: "/admin/manage_building",
           },
         ],
       },

@@ -5,14 +5,15 @@ import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import {
   FacebookAuthProvider,
   GoogleAuthProvider,
-  createUserWithEmailAndPassword,
   getAuth,
   signInWithPopup,
 } from "firebase/auth";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
+import axios from "axios";
 
 export default function SignUp() {
+  const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -26,7 +27,7 @@ export default function SignUp() {
       .then((res) => {
         console.log(res);
         setConfirmLogin(true);
-        navigate("/");
+        navigate(location.state.previousUrl);
       })
       .catch((err) => {
         console.log(err.message);
@@ -38,8 +39,7 @@ export default function SignUp() {
     await signInWithPopup(auth, provider)
       .then((res) => {
         console.log(res);
-        setConfirmLogin(true);
-        navigate("/");
+        navigate(location.state.previousUrl);
       })
       .catch((err) => {
         console.log(err.message);
@@ -48,27 +48,37 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-      await createUserWithEmailAndPassword(auth, email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-          console.log("login", user);
-          navigate("/login");
-        })
-        .catch((error) => {
-          setError(error.code);
-        });
-    } else {
-      setError("No match");
-    }
+    await axios.post("http://localhost:3001/api/auth/register", {
+      email: email,
+      password: password,
+      confirmPassword: confirmPassword,
+      name: userName,
+      role: "user",
+    })
+    .then(res => {
+      console.log(res);
+      navigate("/login")
+    })
+    .catch(({response}) => {
+      console.log(response.data.message)
+      setError(response.data.message)
+    })
     return;
   };
   return (
     <>
-      <Header />
+      <Header address={[["Trang chủ", "/"], ["Mô hình 3D", "/modal3d"], ["Liên hệ", "/contact"]]}/>
       <div className="login_container">
         <h1 className="login_title">Đăng ký</h1>
         <form onSubmit={handleSubmit}>
+          <label htmlFor="userName">Tên người dùng:</label>
+          <input
+            id="userName"
+            type="text"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            required
+          />
           <label htmlFor="email">Email:</label>
           <input
             id="email"
@@ -93,15 +103,11 @@ export default function SignUp() {
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
-          {error == "No match" ? (
+          {error == "Password does not match" ? (
             <p style={{ color: "red", fontSize: "14px" }}>
               Mật khẩu không trùng khớp.
             </p>
-          ) : error == "auth/weak-password" ? (
-            <p style={{ color: "red", fontSize: "14px" }}>
-              Mật khẩu phải có ít nhất 6 ký tự.
-            </p>
-          ) : error == "auth/email-already-in-use" ? (
+          ) : error == "email already taken" ? (
             <p style={{ color: "red", fontSize: "14px" }}>
               Email này đã được đăng ký.
             </p>
