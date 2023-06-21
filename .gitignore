@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 secret.jsx
+
+# Local Netlify folder
+.netlify

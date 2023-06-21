@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Header from "../../components/header";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
@@ -21,13 +21,14 @@ export default function SignUp() {
   const { setConfirmLogin } = useContext(AuthContext);
   const auth = getAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const handleLoginWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider)
       .then((res) => {
         console.log(res);
         setConfirmLogin(true);
-        navigate(location.state.previousUrl);
+        navigate(location.state.prevPath);
       })
       .catch((err) => {
         console.log(err.message);
@@ -39,7 +40,7 @@ export default function SignUp() {
     await signInWithPopup(auth, provider)
       .then((res) => {
         console.log(res);
-        navigate(location.state.previousUrl);
+        navigate(location.state.prevPath);
       })
       .catch((err) => {
         console.log(err.message);
@@ -48,26 +49,37 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:3001/api/auth/register", {
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword,
-      name: userName,
-      role: "user",
-    })
-    .then(res => {
-      console.log(res);
-      navigate("/login")
-    })
-    .catch(({response}) => {
-      console.log(response.data.message)
-      setError(response.data.message)
-    })
+    await axios
+      .post("http://localhost:3001/api/auth/register", {
+        email: email,
+        password: password,
+        confirmPassword: confirmPassword,
+        name: userName,
+      })
+      // eslint-disable-next-line no-unused-vars
+      .then((res) => {
+        console.log(location);
+        navigate("/login", {
+          state: {
+            prevPath: location.state.prevPath,
+          },
+        });
+      })
+      .catch(({ response }) => {
+        console.log(response.data.message);
+        setError(response.data.message);
+      });
     return;
   };
   return (
     <>
-      <Header address={[["Trang chủ", "/"], ["Mô hình 3D", "/modal3d"], ["Liên hệ", "/contact"]]}/>
+      <Header
+        address={[
+          ["Trang chủ", "/"],
+          ["Mô hình 3D", "/modal3d"],
+          ["Liên hệ", "/contact"],
+        ]}
+      />
       <div className="login_container">
         <h1 className="login_title">Đăng ký</h1>
         <form onSubmit={handleSubmit}>
@@ -119,7 +131,7 @@ export default function SignUp() {
         <div className="login_forgot_signUp">
           <nav>
             <NavLink to="/forgotpassword">Quên mật khẩu?</NavLink>
-            <NavLink to="/login">Bạn đã có tài khoản?</NavLink>
+            <NavLink to="/login" state={{prevPath: location.state.prevPath}}>Bạn đã có tài khoản?</NavLink>
           </nav>
         </div>
         <div className="login_otherSignIn">

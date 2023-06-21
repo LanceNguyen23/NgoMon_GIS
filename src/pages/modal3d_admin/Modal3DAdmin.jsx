@@ -20,7 +20,7 @@ export default function Modal3DAdmin() {
     e.preventDefault();
     const url = `http://localhost:3001/api/${selectedOption}/update?path=${pathEntity}`
     console.log(url)
-    axios.put(url, newEntity)
+    axios.put(url, JSON.parse(newEntity))
     .then(() => {
       setOpen(true);
       setPathEntity("");
@@ -30,10 +30,6 @@ export default function Modal3DAdmin() {
       console.error(err);
     });
   }
-
-  console.log(selectedOption)
-  console.log(pathEntity)
-  console.log(newEntity)
 
   return (
     <>

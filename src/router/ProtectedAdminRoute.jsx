@@ -6,11 +6,11 @@ export default function ProtectedAdminRoute() {
   const location = useLocation();
   console.log("protectedAdmin")
   useEffect(() => {
-    if (!localStorage.getItem("accessToken") || !localStorage.getItem("confirmLogin")) {
+    if (!localStorage.getItem("accessToken") || !localStorage.getItem("confirmLogin") || localStorage.getItem("role") != "admin") {
       console.log('protected route admin')
       navigate("/admin", {
         state: {
-          previousUrl: location.pathname
+          prevPath: location.pathname
         }
       });
     }
