@@ -6,11 +6,11 @@ export default function ProtectedRoute() {
   const location = useLocation();
   
   useEffect(() => {
-    if (!localStorage.getItem("accessToken") || !localStorage.getItem("confirmLogin")) {
+    if (!localStorage.getItem("accessToken") || !localStorage.getItem("confirmLogin") || localStorage.getItem("role") != "User") {
       console.log('protected route')
       navigate("/login", {
         state: {
-          previousUrl: location.pathname
+          prevPath: location.pathname
         }
       });
     }

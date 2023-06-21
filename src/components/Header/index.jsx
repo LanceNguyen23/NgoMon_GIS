@@ -1,12 +1,11 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./style.css";
 import { Avatar, Box, Menu, MenuItem, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from '../../assets/img/Logo.png';
 export default function Header() {
   const [anchorEl, setAnchorEl] = useState(null);
 
-  console.log("header user")
   const navigate = useNavigate();
   const location = useLocation();
   const confirmLogin = localStorage.getItem("confirmLogin");
@@ -26,6 +25,9 @@ export default function Header() {
       }
     })
   };
+  useEffect(()=>{
+
+  },[confirmLogin])
   return (
     <div className="header_container">
       <div className="header_logo" onClick={()=>navigate("/")}>
@@ -39,7 +41,7 @@ export default function Header() {
           <NavLink to="/contact">Liên hệ</NavLink>
         </nav>
       </div>
-      {!(localStorage.getItem("accessToken") && confirmLogin) ? (
+      {(!localStorage.getItem("accessToken") || !localStorage.getItem("confirmLogin") || localStorage.getItem("role")!="User") ? (
         <button className="header_login-btn" onClick={() => navigate("/login")}>
           Đăng nhập
         </button>

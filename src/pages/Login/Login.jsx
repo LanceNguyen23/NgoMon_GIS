@@ -25,44 +25,52 @@ export default function Login() {
     await signInWithPopup(auth, provider)
       .then((res) => {
         console.log(res);
-        localStorage.setItem("confirmLogin", true)
-        navigate(location.state.previousUrl);
+        localStorage.setItem("confirmLogin", true);
+        navigate(location.state.prevPath);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-
   const handleLoginWithFacebook = async () => {
     const provider = new FacebookAuthProvider();
     await signInWithPopup(auth, provider)
       .then((res) => {
         console.log(res);
-        localStorage.setItem("confirmLogin", true)
-        navigate(location.state.previousUrl);
+        localStorage.setItem("confirmLogin", true);
+        navigate(location.state.prevPath);
       })
       .catch((err) => {
         console.log(err.message);
       });
   };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
-      .post("https://gis-historical-relic.onrender.com/api/auth/login", {
+    await axios
+      .post("http://localhost:3001/api/auth/login", {
         email: email,
-        password: password
+        password: password,
+        role: "User",
       })
       .then(({ data }) => {
-        localStorage.setItem("confirmLogin", true)
+        localStorage.setItem("confirmLogin", true);
         localStorage.setItem("accessToken", data.tokens.accessToken);
         localStorage.setItem("userName", data.currentUser.name);
         localStorage.setItem("userID", data.currentUser._id);
-        navigate(location.state.previousUrl || "/");
+        localStorage.setItem("role", data.currentUser.role);
+        if (location.state != null) {
+          console.log("locationState", location.state);
+          navigate(location.state.prevPath);
+        } else {
+          console.log("login to home");
+          navigate("/");
+        }
       })
       .catch(({ response }) => {
-        console.log(response.data.message);
-        setError(response.data.message);
+        if (response != null) {
+          setError(response.data.message);
+        }
+        return;
       });
   };
 
@@ -89,9 +97,7 @@ export default function Login() {
             required
           />
           {error == "Incorrect email" ? (
-            <p style={{ fontSize: "14px", color: "red" }}>
-              Email không đúng.
-            </p>
+            <p style={{ fontSize: "14px", color: "red" }}>Email không đúng.</p>
           ) : error == "Incorrect  password" ? (
             <p style={{ fontSize: "14px", color: "red" }}>
               Mật khẩu không đúng.
@@ -104,7 +110,20 @@ export default function Login() {
         <div className="login_forgot_signUp">
           <nav>
             <NavLink to="/forgotpassword">Quên mật khẩu?</NavLink>
-            <NavLink to="/signup">Tạo tài khoản</NavLink>
+            {location.state == null ? (
+              <NavLink to={{ pathname: "/signup", state: { prevPath: "/" } }}>
+                Tạo tài khoản
+              </NavLink>
+            ) : (
+              <NavLink
+                to="/signup"
+                state={{
+                  prevPath: location.state.prevPath,
+                }}
+              >
+                Tạo tài khoản
+              </NavLink>
+            )}
           </nav>
         </div>
         <div className="login_otherSignIn">

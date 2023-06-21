@@ -27,7 +27,7 @@ export default function Contact() {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://gis-historical-relic.onrender.com/api/damageReport/create", {
+      .post("http://localhost:3001/api/damageReport/create", {
         cause: selectedOption,
         content: content,
         userID: localStorage.userID,

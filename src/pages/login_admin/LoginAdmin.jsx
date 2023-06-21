@@ -11,7 +11,7 @@ export default function LoginAdmin() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://gis-historical-relic.onrender.com/api/auth/login", {
+      .post("http://localhost:3001/api/auth/login", {
         email: email,
         password: password,
         role: "admin"
@@ -19,6 +19,7 @@ export default function LoginAdmin() {
       .then(({ data }) => {
         localStorage.setItem("accessToken", data.tokens.accessToken);
         localStorage.setItem("userName", data.currentUser.name);
+        localStorage.setItem("role", data.currentUser.role);
         localStorage.setItem("confirmLogin", true)
 
         navigate("contact_admin");

@@ -1,13 +1,15 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import "./style.css";
 import { Avatar, Box, Menu, MenuItem, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Logo from '../../assets/img/Logo.png';
 export default function HeaderAdmin() {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const navigate = useNavigate();
   const location = useLocation();
+
+  const confirmLogin = localStorage.getItem("confirmLogin")
   console.log("header admin")
 
   const open = Boolean(anchorEl);
@@ -25,6 +27,9 @@ export default function HeaderAdmin() {
       }
     })
   };
+  useEffect(()=>{
+
+  }, [confirmLogin])
   return (
     <div className="header_container">
       <div className="header_logo" onClick={()=>navigate("/")}>
@@ -37,7 +42,7 @@ export default function HeaderAdmin() {
           <NavLink to="/admin/contact_admin">Liên hệ</NavLink>
         </nav>
       </div>
-      {(!localStorage.getItem("accessToken") || !localStorage.getItem("confirmLogin")) ? (
+      {(!localStorage.getItem("accessToken") || !localStorage.getItem("confirmLogin") || localStorage.getItem("role")!="admin") ? (
         <button className="header_login-btn" onClick={() => navigate("/login")}>
           Đăng nhập
         </button>
