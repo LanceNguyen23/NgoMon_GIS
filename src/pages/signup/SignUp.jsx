@@ -50,7 +50,7 @@ export default function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios
-      .post("http://localhost:3001/api/auth/register", {
+      .post("https://gis-historical-relic.onrender.com/api/auth/register", {
         email: email,
         password: password,
         confirmPassword: confirmPassword,
