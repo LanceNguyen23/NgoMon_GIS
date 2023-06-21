@@ -37,7 +37,7 @@ export default function ContactAdmin() {
 
   const handleDeleteContact = async (contactID) => {
     await axios
-      .delete(`http://localhost:3001/api/damageReport/delete/${contactID}`)
+      .delete(`https://gis-historical-relic.onrender.com/api/damageReport/delete/${contactID}`)
       .then(() => {})
       .catch((err) => console.error(err));
     setOpenDelete(false);
@@ -45,7 +45,7 @@ export default function ContactAdmin() {
 
   React.useEffect(() => {
     axios
-      .get("http://localhost:3001/api/damageReport")
+      .get("https://gis-historical-relic.onrender.com/api/damageReport")
       .then(({ data }) => {
         setData(data);
       })
