@@ -21,7 +21,7 @@ export default function Header() {
     localStorage.clear();
     navigate('/login', {
       state: {
-        previousUrl: location.pathname
+        prevPath: location.pathname
       }
     })
   };

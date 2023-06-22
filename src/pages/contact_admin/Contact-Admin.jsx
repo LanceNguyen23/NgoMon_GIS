@@ -12,16 +12,24 @@ import axios from "axios";
 export default function ContactAdmin() {
   // gửi mail
   const [open, setOpen] = React.useState(false);
+  const [userName, setUserName] = React.useState("");
+  const [emailUser, setEmailUser] = React.useState("");
+  const [contactId, setContactId] = React.useState("");
   const [data, setData] = React.useState([]);
 
-  const handleClickOpen = () => {
+  const handleClickOpen = (datum) => {
     setOpen(true);
+    const name = datum["userID"] != undefined ? datum["userID"]["name"] : "";
+    setUserName(name);
+    const email = datum["userID"] != undefined ? datum["userID"]["email"] : "";
+    setEmailUser(email);
+    const contactID = datum["_id"];
+    setContactId(contactID);
   };
 
   const handleClose = () => {
     setOpen(false);
   };
-
 
   // xóa
 
@@ -36,8 +44,11 @@ export default function ContactAdmin() {
   };
 
   const handleDeleteContact = async (contactID) => {
+    console.log(contactID);
     await axios
-      .delete(`https://gis-historical-relic.onrender.com/api/damageReport/delete/${contactID}`)
+      .delete(
+        `https://gis-historical-relic.onrender.com/api/damageReport/delete/${contactID}`
+      )
       .then(() => {})
       .catch((err) => console.error(err));
     setOpenDelete(false);
@@ -73,9 +84,7 @@ export default function ContactAdmin() {
               data.map((datum, i) => {
                 const name =
                   datum["userID"] != undefined ? datum["userID"]["name"] : "";
-                const email =
-                  datum["userID"] != undefined ? datum["userID"]["email"] : "";
-                const contactID = datum["_id"];
+
                 return (
                   <div key={i}>
                     <div className="contact-admin-table-content-row">
@@ -90,7 +99,7 @@ export default function ContactAdmin() {
                       <div className="contact-admin-table-col">
                         <button
                           className="contact-btn-send"
-                          onClick={handleClickOpen}
+                          onClick={() => handleClickOpen(datum)}
                         >
                           Gửi mail
                         </button>
@@ -103,54 +112,6 @@ export default function ContactAdmin() {
                         </button>
                       </div>
                     </div>
-                    <Dialog
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="alert-dialog-title"
-                      aria-describedby="alert-dialog-description"
-                    >
-                      <DialogTitle id="alert-dialog-title">
-                        Bạn có muốn gửi mail cảm ơn đến {name}?
-                      </DialogTitle>
-                      <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                          Khi bạn chọn gửi thì hệ thống sẽ gửi một mail đến
-                          người dùng {name}. Để cảm ơn góp ý của họ đối với
-                          trang web và dự án của chúng ta
-                        </DialogContentText>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleClose}>Hủy</Button>
-                        <Button onClick={handleClose} autoFocus>
-                          <a href={`mailto:${email}`}>Gửi</a>
-                        </Button>
-                      </DialogActions>
-                    </Dialog>
-
-                    <Dialog
-                      open={openDelete}
-                      onClose={handleCloseDelete}
-                      aria-labelledby="alert-dialog-title"
-                      aria-describedby="alert-dialog-description"
-                    >
-                      <DialogTitle id="alert-dialog-title">
-                        Bạn có muốn xóa phản hồi {name}?
-                      </DialogTitle>
-                      <DialogContent>
-                        <DialogContentText id="alert-dialog-description">
-                          Khi bạn chọn xóa thì hệ thống sẽ phản hồi của {name} này ra khỏi hệ thống.
-                        </DialogContentText>
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleCloseDelete}>Hủy</Button>
-                        <Button
-                          onClick={() => handleDeleteContact(contactID)}
-                          autoFocus
-                        >
-                          Xóa
-                        </Button>
-                      </DialogActions>
-                    </Dialog>
                   </div>
                 );
               })
@@ -158,9 +119,54 @@ export default function ContactAdmin() {
               <></>
             )}
           </div>
-          {/* lấy id của ng hiện và xủa lý xóa */}
         </div>
       </div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle>Bạn có muốn gửi mail cảm ơn đến {userName}?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Khi bạn chọn gửi thì hệ thống sẽ gửi một mail đến người dùng {userName}.
+            Để cảm ơn góp ý của họ đối với trang web và dự án của chúng ta.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Hủy</Button>
+          <Button onClick={handleClose} autoFocus>
+            <a href={`mailto:${emailUser}`}>Gửi</a>
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={openDelete}
+        onClose={handleCloseDelete}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle>Bạn có muốn xóa phản hồi {userName}?</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Khi bạn chọn xóa thì hệ thống sẽ phản hồi của {userName} này ra khỏi hệ
+            thống.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDelete}>Hủy</Button>
+          <Button
+            onClick={() => {
+              handleDeleteContact(contactId);
+            }}
+            autoFocus
+          >
+            Xóa
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
