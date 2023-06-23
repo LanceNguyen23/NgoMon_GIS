@@ -11,7 +11,7 @@ export default function LoginAdmin() {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://gis-historical-relic-management.vercel.app/api/auth/login", {
+      .post("https://gis-historical-relic.onrender.comapi/auth/login", {
         email: email,
         password: password,
         role: "admin"

@@ -47,7 +47,7 @@ export default function ContactAdmin() {
     console.log(contactID);
     await axios
       .delete(
-        `https://gis-historical-relic-management.vercel.app/api/damageReport/delete/${contactID}`
+        `https://gis-historical-relic.onrender.comapi/damageReport/delete/${contactID}`
       )
       .then(() => {})
       .catch((err) => console.error(err));
@@ -56,7 +56,7 @@ export default function ContactAdmin() {
 
   React.useEffect(() => {
     axios
-      .get("https://gis-historical-relic-management.vercel.app/api/damageReport")
+      .get("https://gis-historical-relic.onrender.comapi/damageReport")
       .then(({ data }) => {
         setData(data);
       })
