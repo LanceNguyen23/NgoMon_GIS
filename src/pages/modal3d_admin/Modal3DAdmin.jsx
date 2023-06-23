@@ -36,7 +36,7 @@ export default function Modal3DAdmin() {
     <>
       <HeaderAdmin />
       <iframe
-        src="http://127.0.0.1:5502/NgoMon.html"
+        src="https://arcgislab2-nhom1.netlify.app/"
         className="model3d_frame"
       />
       <div>
