@@ -10,6 +10,7 @@ export default function Modal3DAdmin() {
   const [pathEntity, setPathEntity] = useState("");
   const [newEntity, setNewEntity] = useState("");
   const [selectedOption, setSelectedOption] = useState("");
+  const [selectedNewInfo, setselectedNewInfo] = useState("");
   const [open, setOpen] = useState(false);
 
   const handleClick = () => {
@@ -18,9 +19,9 @@ export default function Modal3DAdmin() {
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
-    const url = `https://gis-historical-relic.onrender.com/api/${selectedOption}/update?path=${pathEntity}`
-    console.log(url)
-    axios.put(url, JSON.parse(newEntity))
+    const url = `https://gis-historical-relic-management.vercel.app/api/${selectedOption}/update?path=${pathEntity}`
+    const newInfo = {[selectedNewInfo] : newEntity}
+    axios.put(url, newInfo)
     .then(() => {
       setOpen(true);
       setPathEntity("");
@@ -35,7 +36,7 @@ export default function Modal3DAdmin() {
     <>
       <HeaderAdmin />
       <iframe
-        src="https://arcgislab2-nhom1.netlify.app/?fbclid=IwAR1h9l76heg76QuSqvZLTBRXGp8CThQ5389LevX8t58lrYQbcJ9xdl_omRE"
+        src="http://127.0.0.1:5502/NgoMon.html"
         className="model3d_frame"
       />
       <div>
@@ -82,7 +83,29 @@ export default function Modal3DAdmin() {
             </div>
 
             <div className="contact-form">
-              <label className="contact-form-title">Mô tả mới (JSON):</label>
+              <label className="contact-form-title">Loại thực thể:</label>
+              <select
+                className="contact-form-input"
+                id="selectField"
+                name="kindOfEntity"
+                value={selectedNewInfo}
+                onChange={(e) => setselectedNewInfo(e.target.value)}
+                style={{ paddingLeft: "15px" }}
+              >
+                <option value="none" hidden>
+                  Chọn thuộc tính của thực thể
+                </option>
+                <option value="name">Tên thực thể</option>
+                <option value="color">Màu thực thể</option>
+                <option value="width">Chiều rộng thực thể</option>
+                <option value="height">Chiều cao thực thể</option>
+                {/* <option value="buildingMaterial">Vật liệu cấu tạo thực thể</option>
+                <option value="buildingStatus">Trạng thái thực thể</option> */}
+              </select>
+            </div>
+
+            <div className="contact-form">
+              <label className="contact-form-title">Mô tả mới:</label>
               <input
                 className="contact-form-textarea"
                 type="text"
