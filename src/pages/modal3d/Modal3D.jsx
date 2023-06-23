@@ -6,7 +6,7 @@ export default function Modal3D() {
   return (
     <>
       <Header/>
-      <iframe src="https://arcgislab2-nhom1.netlify.app/?fbclid=IwAR1h9l76heg76QuSqvZLTBRXGp8CThQ5389LevX8t58lrYQbcJ9xdl_omRE" className="model3d_frame"/>
+      <iframe src="http://127.0.0.1:5502/NgoMon.html" className="model3d_frame"/>
     </>
   )
 }

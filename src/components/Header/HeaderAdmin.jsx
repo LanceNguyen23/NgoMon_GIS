@@ -23,7 +23,7 @@ export default function HeaderAdmin() {
     localStorage.clear();
     navigate('/admin', {
       state: {
-        previousUrl: location.pathname
+        prevPath: location.pathname
       }
     })
   };
