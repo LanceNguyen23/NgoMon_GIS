@@ -27,7 +27,7 @@ export default function Contact() {
   const handleOnSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("https://gis-historical-relic-management.vercel.app/api/damageReport/create", {
+      .post("https://gis-historical-relic.onrender.comapi/damageReport/create", {
         cause: selectedOption,
         content: content,
         userID: localStorage.userID,
